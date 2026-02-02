@@ -55,7 +55,6 @@ func Part2(input string) {
 	grid := getGrid(input)
 	var sum int
 
-outer:
 	for {
 		var accessibleRolls int
 		for i := range grid {
@@ -68,10 +67,9 @@ outer:
 			}
 		}
 		if accessibleRolls == 0 {
-			break outer
-		} else {
-			sum += accessibleRolls
+			break
 		}
+		sum += accessibleRolls
 	}
 
 	fmt.Printf("There are %d rolls of paper that can be accessed by a forklift", sum)
