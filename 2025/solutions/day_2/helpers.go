@@ -15,7 +15,7 @@ const TEST = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-
 func sumInvalidIDs(input string, isNotValid func(int) bool) int {
 	invalidSum := 0
 
-	for id := range strings.SplitSeq(strings.TrimSpace(input), ",") {
+	for id := range strings.SplitSeq(input, ",") {
 		pair := strings.Split(id, "-")
 		min, _ := strconv.Atoi(pair[0])
 		max, _ := strconv.Atoi(pair[1])

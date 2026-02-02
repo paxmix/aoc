@@ -7,6 +7,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/joho/godotenv"
 )
@@ -45,5 +46,5 @@ func FetchData(day int) string {
 		log.Fatalf("Failed to read response: %v", err)
 	}
 
-	return string(body)
+	return strings.TrimSpace(string(body))
 }

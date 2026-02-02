@@ -95,7 +95,7 @@ func neighbors(grid [][]byte, row, col int) int {
 }
 
 func getGrid(input string) [][]byte {
-	lines := strings.Split(strings.TrimSpace(input), "\n")
+	lines := strings.Split(input, "\n")
 	grid := make([][]byte, len(lines))
 	for i, line := range lines {
 		grid[i] = []byte(line)
