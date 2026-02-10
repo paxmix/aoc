@@ -1,5 +1,4 @@
-// Package helper store helpers function like FetchData and some repetitive functions
-package helper
+package main
 
 import (
 	"fmt"
@@ -9,15 +8,15 @@ import (
 	"os"
 	"strings"
 
-	day1 "aoc/2025/solutions/day_1"
-	day2 "aoc/2025/solutions/day_2"
-	day3 "aoc/2025/solutions/day_3"
-	day4 "aoc/2025/solutions/day_4"
+	day1 "aoc/2025/day_1"
+	day2 "aoc/2025/day_2"
+	day3 "aoc/2025/day_3"
+	day4 "aoc/2025/day_4"
 
 	"github.com/joho/godotenv"
 )
 
-func FetchData(day int) string {
+func fetchData(day int) string {
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("Warning: .env file not found, using environment variables")
@@ -60,7 +59,7 @@ var solutions = []struct {
 	TEST  string
 }{
 	1: {day1.Part1, day1.Part1, day1.TEST},
-	2: {day2.Part1, day2.Part2, day2.TEST},
+	2: {day2.Part2, day2.Part2, day2.TEST},
 	3: {day3.Part1, day3.Part2, day3.TEST},
 	4: {day4.Part1, day4.Part2, day4.TEST},
 }
@@ -78,7 +77,7 @@ func Run(day, part int, isTest bool) {
 	if isTest {
 		input = solution.TEST
 	} else {
-		input = FetchData(day)
+		input = fetchData(day)
 	}
 
 	switch part {
