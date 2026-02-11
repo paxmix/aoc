@@ -12,11 +12,12 @@ import (
 	day2 "aoc/2025/day_2"
 	day3 "aoc/2025/day_3"
 	day4 "aoc/2025/day_4"
+	day5 "aoc/2025/day_5"
 
 	"github.com/joho/godotenv"
 )
 
-func fetchData(day int) string {
+func FetchData(day int) string {
 	err := godotenv.Load()
 	if err != nil {
 		log.Println("Warning: .env file not found, using environment variables")
@@ -53,6 +54,14 @@ func fetchData(day int) string {
 	return strings.TrimSpace(string(body))
 }
 
+func getInput(file string) string {
+	data, err := os.ReadFile(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return strings.TrimSpace(string(data))
+}
+
 var solutions = []struct {
 	Part1 func(string)
 	Part2 func(string)
@@ -62,6 +71,7 @@ var solutions = []struct {
 	2: {day2.Part2, day2.Part2, day2.TEST},
 	3: {day3.Part1, day3.Part2, day3.TEST},
 	4: {day4.Part1, day4.Part2, day4.TEST},
+	5: {day5.Part1, day5.Part2, day5.TEST},
 }
 
 func Run(day, part int, isTest bool) {
@@ -74,18 +84,18 @@ func Run(day, part int, isTest bool) {
 		part = 2
 	}
 	var input string
+	file := fmt.Sprintf("day_%d/puzzle.txt", day)
 	if isTest {
 		input = solution.TEST
 	} else {
-		input = fetchData(day)
+		input = getInput(file)
 	}
-
 	switch part {
 	case 1:
 		solution.Part1(input)
 	case 2:
 		solution.Part2(input)
 	default:
-		fmt.Print("Each day only has two parts")
+		fmt.Println("Each day only has two parts")
 	}
 }
