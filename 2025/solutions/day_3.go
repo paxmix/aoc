@@ -1,9 +1,4 @@
-// Package day3: You descend a short staircase, enter the surprisingly vast lobby, and are quickly cleared by the security checkpoint. When you get to the main elevators, however, you discover that each one has a red light above it: they're all offline.
-// "Sorry about that," an Elf apologizes as she tinkers with a nearby control panel. "Some kind of electrical surge seems to have fried them. I'll try to get them online soon."
-// You explain your need to get further underground. "Well, you could at least take the escalator down to the printing department, not that you'd get much further than that without the elevators working. That is, you could if the escalator weren't also offline."
-// "But, don't worry! It's not fried; it just needs power. Maybe you can get it running while I keep working on the elevators."
-// There are batteries nearby that can supply emergency power to the escalator for just such an occasion. The batteries are each labeled with their joltage rating, a value from 1 to 9.
-package day3
+package solutions
 
 import (
 	"fmt"
@@ -12,13 +7,13 @@ import (
 
 const (
 	joltageLen = 12
-	TEST       = `987654321111111
+	Day3TEST   = `987654321111111
 811111111111119
 234234234234278
 818181911112111`
 )
 
-func Part1(input string) {
+func Day3Part1(input string) {
 	var total int
 
 	for bank := range strings.Lines(input) {
@@ -44,7 +39,7 @@ func Part1(input string) {
 	fmt.Printf("Part 1 total output joltage is: %d", total)
 }
 
-func Part2(input string) {
+func Day3Part2(input string) {
 	var total int
 
 	for bank := range strings.Lines(input) {
