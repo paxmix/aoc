@@ -6,61 +6,42 @@ import (
 )
 
 const (
-	joltageLen = 12
-	Day3TEST   = `987654321111111
+	Day3TEST = `987654321111111
 811111111111119
 234234234234278
 818181911112111`
 )
 
 func Day3Part1(input string) {
-	var total int
-
-	for bank := range strings.Lines(input) {
-		bank = strings.TrimSpace(bank)
-		var left, right byte
-
-		for i := 0; i < len(bank); i++ {
-			battery := bank[i]
-			if i != len(bank)-1 && battery > left {
-				left = battery
-				right = bank[i+1]
-				continue
-			}
-			if battery > right {
-				right = battery
-			}
-		}
-		joltage := (int(left-'0')*10 + int(right-'0'))
-		fmt.Printf("Maximum joltage of %s is %d\n", bank, joltage)
-		total += joltage
-	}
+	total := sumMaxJoltage(input, 2)
 
 	fmt.Printf("Part 1 total output joltage is: %d", total)
 }
 
 func Day3Part2(input string) {
+	total := sumMaxJoltage(input, 12)
+	fmt.Printf("Part 2 total output joltage is: %d", total)
+}
+
+func sumMaxJoltage(input string, length int) int {
 	var total int
 
 	for bank := range strings.Lines(input) {
-		maxJoltages := make([]byte, joltageLen)
 		bank = strings.TrimSpace(bank)
-
+		maxJoltages := make([]byte, length)
+		var top int
+		bankLen := len(bank)
 		for i := range bank {
-			var minCheck int
-			if len(bank)-i < joltageLen {
-				minCheck = joltageLen - (len(bank) - i)
+			battery := bank[i]
+			remaining := bankLen - i
+			for top > 0 &&
+				maxJoltages[top-1] < battery &&
+				top+remaining > length {
+				top--
 			}
-			maxCheck := min(i+1, joltageLen)
-
-			for j := minCheck; j < maxCheck; j++ {
-				if maxJoltages[j] < bank[i] {
-					maxJoltages[j] = bank[i]
-					for z := 1; z < joltageLen-j; z++ {
-						maxJoltages[j+z] = '0'
-					}
-					break
-				}
+			if top < length {
+				maxJoltages[top] = battery
+				top++
 			}
 		}
 
@@ -73,5 +54,5 @@ func Day3Part2(input string) {
 		total += joltage
 	}
 
-	fmt.Printf("Part 2 total output joltage is: %d", total)
+	return total
 }

@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 
-	"aoc/2025/solutions"
+	sol "aoc/2025/solutions"
 )
 
 func getInput(file string) string {
@@ -17,23 +17,23 @@ func getInput(file string) string {
 	return strings.TrimSpace(string(data))
 }
 
-var answers = []struct {
+var solutions = []struct {
 	part1 func(string)
 	part2 func(string)
 	test  string
 }{
-	1: {solutions.Day1Part2, solutions.Day1Part2, solutions.Day1TEST},
-	2: {solutions.Day2Part1, solutions.Day2Part2, solutions.Day2TEST},
-	3: {solutions.Day3Part1, solutions.Day3Part2, solutions.Day3TEST},
-	4: {solutions.Day4Part1, solutions.Day4Part2, solutions.Day4TEST},
-	5: {solutions.Day5Part1, solutions.Day5Part2, solutions.Day5TEST},
+	1: {sol.Day1Part2, sol.Day1Part2, sol.Day1TEST},
+	2: {sol.Day2Part1, sol.Day2Part2, sol.Day2TEST},
+	3: {sol.Day3Part1, sol.Day3Part2, sol.Day3TEST},
+	4: {sol.Day4Part1, sol.Day4Part2, sol.Day4TEST},
+	5: {sol.Day5Part1, sol.Day5Part2, sol.Day5TEST},
 }
 
 func Run(day, part int, isTest bool) {
-	if day < 0 || day >= len(answers) {
+	if day < 0 || day >= len(solutions) {
 		log.Fatal("\n-> invalid day! <-")
 	}
-	solution := answers[day]
+	solution := solutions[day]
 	if day == 1 && part == 1 {
 		fmt.Println("Day 1 only have part 2")
 		part = 2
