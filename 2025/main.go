@@ -1,5 +1,7 @@
 package main
 
 func main() {
-	Run(3, 1, false)
+	// // Download puzzles files first
+	// DownloadPuzzles()
+	Run(6, 1, false)
 }
