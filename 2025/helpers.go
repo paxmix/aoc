@@ -27,6 +27,7 @@ var solutions = []struct {
 	3: {sol.Day3Part1, sol.Day3Part2, sol.Day3TEST},
 	4: {sol.Day4Part1, sol.Day4Part2, sol.Day4TEST},
 	5: {sol.Day5Part1, sol.Day5Part2, sol.Day5TEST},
+	6: {sol.Day6Part1, sol.Day6Part2, sol.Day6TEST},
 }
 
 func Run(day, part int, isTest bool) {
