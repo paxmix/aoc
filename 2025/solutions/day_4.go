@@ -2,20 +2,8 @@ package solutions
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
-)
-
-const (
-	Day4TEST = `..@@.@@@@.
-@@@.@.@.@@
-@@@@@.@.@@
-@.@@@@..@.
-@@.@@@@.@@
-.@@@@@@@.@
-.@.@.@.@@@
-@.@@@.@@@@
-.@@@@@@@@.
-@.@.@@@.@.`
 )
 
 var dirs = [8][2]int{
@@ -29,7 +17,9 @@ var dirs = [8][2]int{
 	{1, 1},
 }
 
-func Day4Part1(input string) {
+type Day4 struct{}
+
+func (d Day4) Part1(input string) string {
 	grid := getGrid(input)
 
 	var accessibleRolls int
@@ -43,10 +33,10 @@ func Day4Part1(input string) {
 		}
 	}
 
-	fmt.Printf("There are %d rolls of paper that can be accessed by a forklift", accessibleRolls)
+	return strconv.Itoa(accessibleRolls)
 }
 
-func Day4Part2(input string) {
+func (d Day4) Part2(input string) string {
 	grid := getGrid(input)
 	var sum int
 
@@ -67,7 +57,7 @@ func Day4Part2(input string) {
 		sum += accessibleRolls
 	}
 
-	fmt.Printf("There are %d rolls of paper that can be accessed by a forklift", sum)
+	return strconv.Itoa(sum)
 }
 
 func neighbors(grid [][]byte, row, col int) int {

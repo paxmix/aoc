@@ -2,26 +2,15 @@ package solutions
 
 import (
 	"errors"
-	"fmt"
 	"log"
 	"slices"
 	"strconv"
 	"strings"
 )
 
-const Day5TEST string = `3-5
-10-14
-16-20
-12-18
+type Day5 struct{}
 
-1
-5
-8
-11
-17
-32`
-
-func Day5Part1(input string) {
+func (d Day5) Part1(input string) string {
 	pair := strings.Split(input, "\n\n")
 	if len(pair) != 2 {
 		log.Fatal("invalid input format")
@@ -46,10 +35,10 @@ func Day5Part1(input string) {
 		}
 	}
 
-	fmt.Printf("Part 1 number of fresh ingredient is: %d", freshCount)
+	return strconv.Itoa(freshCount)
 }
 
-func Day5Part2(input string) {
+func (d Day5) Part2(input string) string {
 	ranges, err := parseRanges(strings.Split(input, "\n\n")[0])
 	if err != nil {
 		log.Fatal("errors while parsing ranges sequence")
@@ -58,7 +47,8 @@ func Day5Part2(input string) {
 	for _, pair := range ranges {
 		freshSum += (pair.max - pair.min + 1)
 	}
-	fmt.Printf("Part 2 number of considered fresh ingredient is %d", freshSum)
+
+	return strconv.Itoa(freshSum)
 }
 
 type Pair struct {

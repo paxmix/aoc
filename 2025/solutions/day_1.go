@@ -2,23 +2,39 @@
 package solutions
 
 import (
-	"fmt"
 	"strconv"
 	"strings"
 )
 
-const Day1TEST = `L68
-L30
-R48
-L5
-R60
-L55
-L1
-L99
-R14
-L82`
+type Day1 struct{}
 
-func Day1Part2(input string) {
+func (d Day1) Part1(input string) string {
+	dial := 50
+	pwd := 0
+
+	for line := range strings.Lines(input) {
+		line = strings.TrimSpace(line)
+		direction := line[0]
+		value, err := strconv.Atoi(line[1:])
+		if err != nil {
+			continue
+		}
+		switch direction {
+		case 'R':
+			dial += value
+		case 'L':
+			dial -= value
+		}
+		dial = (dial + 100) % 100
+		if dial == 0 {
+			pwd++
+		}
+	}
+
+	return strconv.Itoa(pwd)
+}
+
+func (d Day1) Part2(input string) string {
 	dial := 50
 	pwd := 0
 
@@ -31,7 +47,6 @@ func Day1Part2(input string) {
 		}
 
 		base := dial
-
 		switch direction {
 		case 'R':
 			dial += value
@@ -53,5 +68,5 @@ func Day1Part2(input string) {
 		dial = (dial%100 + 100) % 100
 	}
 
-	fmt.Printf("Password: %d", pwd)
+	return strconv.Itoa(pwd)
 }

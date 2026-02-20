@@ -6,24 +6,24 @@ import (
 	"strings"
 )
 
-func Day2Part1(input string) {
+type Day2 struct{}
+
+func (d Day2) Part1(input string) string {
 	sum := sumInvalidIDs(input, func(id int) bool {
 		length := lenInt(id)
 		return length%2 == 0 && !isFactorValid(id, 2, length)
 	})
 
-	fmt.Printf("Sum of invalid ids: %d", sum)
+	return strconv.Itoa(sum)
 }
 
-func Day2Part2(input string) {
+func (d Day2) Part2(input string) string {
 	sum := sumInvalidIDs(input, func(id int) bool {
 		return !isValidID(id)
 	})
 
-	fmt.Printf("Sum of invalid ids: %d", sum)
+	return strconv.Itoa(sum)
 }
-
-const Day2TEST = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224,1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124"
 
 func sumInvalidIDs(input string, isNotValid func(int) bool) int {
 	invalidSum := 0

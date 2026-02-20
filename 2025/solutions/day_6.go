@@ -1,11 +1,9 @@
 package solutions
 
 import (
-	"fmt"
 	"log"
 	"strconv"
 	"strings"
-	"time"
 )
 
 const Day6TEST string = `123 328  51 64 
@@ -13,20 +11,20 @@ const Day6TEST string = `123 328  51 64
   6 98  215 314
 *   +   *   +  `
 
-func Day6Part1(input string) {
-	curTime := time.Now()
+type Day6 struct{}
+
+func (d Day6) Part1(input string) string {
 	lines := strings.Split(input, "\n")
 	ops := strings.Fields(lines[len(lines)-1])
 	data := lines[:len(lines)-1]
 
 	numOfCols := len(ops)
-	sum := make([]int, numOfCols)
-	prod := make([]int, numOfCols)
-	for i := range prod {
-		prod[i] = 1
+	result := make([]int, numOfCols)
+	for i := range result {
+		if ops[i] == "*" {
+			result[i] = 1
+		}
 	}
-
-	var total int
 
 	for _, line := range data {
 		for j, val := range strings.Fields(line) {
@@ -34,19 +32,23 @@ func Day6Part1(input string) {
 			if err != nil {
 				log.Fatalf("Error parsing %s", val)
 			}
-			sum[j] += num
-			prod[j] *= num
+			switch ops[j] {
+			case "+":
+				result[j] += num
+			case "*":
+				result[j] *= num
+			}
 		}
 	}
-	for i := range ops {
-		switch ops[i] {
-		case "+":
-			total += sum[i]
-		case "*":
-			total += prod[i]
-		}
+
+	var total int
+	for _, r := range result {
+		total += r
 	}
-	fmt.Printf("Part 1 sum of all problems is %d - took %s", total, time.Since(curTime))
+
+	return strconv.Itoa(total)
 }
 
-func Day6Part2(input string) {}
+func (d Day6) Part2(input string) string {
+	return ""
+}

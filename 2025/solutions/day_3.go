@@ -2,25 +2,20 @@ package solutions
 
 import (
 	"fmt"
+	"strconv"
 	"strings"
 )
 
-const (
-	Day3TEST = `987654321111111
-811111111111119
-234234234234278
-818181911112111`
-)
+type Day3 struct{}
 
-func Day3Part1(input string) {
+func (d Day3) Part1(input string) string {
 	total := sumMaxJoltage(input, 2)
-
-	fmt.Printf("Part 1 total output joltage is: %d", total)
+	return strconv.Itoa(total)
 }
 
-func Day3Part2(input string) {
+func (d Day3) Part2(input string) string {
 	total := sumMaxJoltage(input, 12)
-	fmt.Printf("Part 2 total output joltage is: %d", total)
+	return strconv.Itoa(total)
 }
 
 func sumMaxJoltage(input string, length int) int {
