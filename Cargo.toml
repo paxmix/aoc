@@ -1,0 +1,11 @@
+[package]
+name = "aoc"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+disjoint = "0.8.0"
+dotenv = "0.15.0"
+itertools = "0.14.0"
+reqwest = "0.13.2"
+tokio = {version="1.49.0",features=["full"]}
