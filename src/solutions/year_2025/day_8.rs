@@ -13,15 +13,19 @@ impl Default for Day8 {
 }
 
 #[derive(Clone)]
-struct JBox(u64, u64, u64);
+struct JBox {
+    x: u64,
+    y: u64,
+    z: u64,
+}
 impl From<&str> for JBox {
     fn from(value: &str) -> Self {
         let mut parts = value.split(',').map(|part| part.parse().unwrap());
-        JBox(
-            parts.next().unwrap(),
-            parts.next().unwrap(),
-            parts.next().unwrap(),
-        )
+        JBox {
+            x: parts.next().unwrap(),
+            y: parts.next().unwrap(),
+            z: parts.next().unwrap(),
+        }
     }
 }
 
@@ -48,11 +52,11 @@ impl Answer for Day8 {
         let boxes: Vec<JBox> = input.lines().map(JBox::from).collect();
         let mut dsv: DisjointSetVec<JBox> = DisjointSetVec::from(boxes.clone());
 
-        let mut joined: (usize, usize) = (0, 0);
+        let mut last_joined_idx: (usize, usize) = (0, 0);
         let mut count = 0;
         for (_, i, j) in get_all_distances(&boxes) {
             if dsv.join(i, j) {
-                joined = (i, j);
+                last_joined_idx = (i, j);
                 count += 1;
                 // Stop if all JBoxes are joined in the same circuit
                 if count == boxes.len() - 1 {
@@ -60,14 +64,14 @@ impl Answer for Day8 {
                 }
             }
         }
-        (boxes[joined.0].0 * boxes[joined.1].0).to_string()
+        (boxes[last_joined_idx.0].x * boxes[last_joined_idx.1].x).to_string()
     }
 }
 
 fn square_distance(this: &JBox, other: &JBox) -> u64 {
-    let dx = this.0.abs_diff(other.0);
-    let dy = this.1.abs_diff(other.1);
-    let dz = this.2.abs_diff(other.2);
+    let dx = this.x.abs_diff(other.x);
+    let dy = this.y.abs_diff(other.y);
+    let dz = this.z.abs_diff(other.z);
     dx * dx + dy * dy + dz * dz
 }
 
