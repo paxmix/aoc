@@ -12,7 +12,7 @@ impl Answer for Day7 {
         let mut lines = input.lines();
         let first = lines.next().unwrap();
         let mut beam_at = vec![false; first.len()];
-        let mut split_count = 0;
+        let mut split_count: u32 = 0;
         beam_at[first.find('S').unwrap()] = true;
 
         for line in lines

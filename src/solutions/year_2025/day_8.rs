@@ -42,7 +42,7 @@ impl Answer for Day8 {
             .map(|i| dsv.root_of(i))
             .counts()
             .values()
-            .sorted_unstable_by(|a, b| b.cmp(a))
+            .sorted_unstable_by(|&a, &b| b.cmp(a))
             .take(3)
             .product::<usize>()
             .to_string()
