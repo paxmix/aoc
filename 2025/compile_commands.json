@@ -14,7 +14,7 @@
       "-o",
       "build/main.o"
     ],
-    "directory": "/home/paxmix/Projects/aoc_cpp/2025",
+    "directory": "/home/paxmix/Projects/CPP/aoc/2025",
     "output": "build/main.o"
   }
 ]
