@@ -21,17 +21,13 @@ class Graph {
     std::vector<std::vector<int>> paths;
 
     i64 dfs(int node, int end, std::vector<i64> &memo);
-    i64 dfs_viaAB(int node, int end, int A, int B, int mask,
-                  std::vector<std::array<i64, 4>> &memo);
+    i64 dfs_viaAB(int node, int end, int A, int B, int mask, std::vector<std::array<i64, 4>> &memo);
     int get_id(const std::string &node);
 };
 
 constexpr const char *YOU = "you";
 constexpr const char *OUT = "out";
-std::string Day11::part_1(std::string filepath)
-{
-    return std::to_string(Graph{filepath}.count_paths_p1(YOU, OUT));
-}
+std::string Day11::part_1(std::string filepath) { return std::to_string(Graph{filepath}.count_paths_p1(YOU, OUT)); }
 
 constexpr const char *SVR = "svr";
 constexpr std::pair<const char *, const char *> MUST_VISIT = {"dac", "fft"};
@@ -62,12 +58,10 @@ i64 Graph::count_paths_p2(const std::string &start, const std::string &end,
                           const std::pair<std::string, std::string> &must_visit)
 {
     std::vector<std::array<i64, 4>> memo(this->paths.size(), {-1, -1, -1, -1});
-    return this->dfs_viaAB(this->get_id(start), this->get_id(end),
-                           this->get_id(must_visit.first),
+    return this->dfs_viaAB(this->get_id(start), this->get_id(end), this->get_id(must_visit.first),
                            this->get_id(must_visit.second), 0, memo);
 }
-i64 Graph::dfs_viaAB(int node, int end, int A, int B, int mask,
-                     std::vector<std::array<i64, 4>> &memo)
+i64 Graph::dfs_viaAB(int node, int end, int A, int B, int mask, std::vector<std::array<i64, 4>> &memo)
 {
     if (node == A || node == B) mask |= (node == A ? 1 : 2);
     if (node == end) return mask == 3;

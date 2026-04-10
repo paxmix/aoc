@@ -42,6 +42,7 @@ FETCH_OBJ = build/fetch_puzzles.o
 FETCH_TARGET = bin/fetch
 
 fetch: $(FETCH_TARGET)
+		./$(FETCH_TARGET)
 
 $(FETCH_TARGET): $(FETCH_OBJ) | bin
 	$(CXX) $(CXXFLAGS) $^ -o $@ -lcurl

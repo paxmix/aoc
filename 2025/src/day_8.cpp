@@ -26,18 +26,15 @@ class JBox {
         const char *end = ptr + input.size();
         auto [p1, ec1] = std::from_chars(ptr, end, x);
         if (ec1 != std::errc{} || p1 == end || *p1 != ',') {
-            throw std::runtime_error("Invalid JBox format: " +
-                                     std::string(input));
+            throw std::runtime_error("Invalid JBox format: " + std::string(input));
         }
         auto [p2, ec2] = std::from_chars(p1 + 1, end, y);
         if (ec2 != std::errc{} || p2 == end || *p2 != ',') {
-            throw std::runtime_error("Invalid JBox format: " +
-                                     std::string(input));
+            throw std::runtime_error("Invalid JBox format: " + std::string(input));
         }
         auto [_, ec3] = std::from_chars(p2 + 1, end, z);
         if (ec3 != std::errc{}) {
-            throw std::runtime_error("Invalid JBox format: " +
-                                     std::string(input));
+            throw std::runtime_error("Invalid JBox format: " + std::string(input));
         }
     }
 };
@@ -50,8 +47,7 @@ class DisjointSetUnion {
     std::vector<std::size_t> comp_size;
 
   public:
-    explicit DisjointSetUnion(std::vector<T> values)
-        : size(values.size()), parent(size), comp_size(size, 1)
+    explicit DisjointSetUnion(std::vector<T> values) : size(values.size()), parent(size), comp_size(size, 1)
     {
         for (std::size_t i = 0; i < parent.size(); ++i) {
             parent[i] = i;
@@ -60,10 +56,7 @@ class DisjointSetUnion {
 
     std::size_t len() const { return size; }
 
-    std::size_t root_of(std::size_t x)
-    {
-        return parent[x] != x ? parent[x] = root_of(parent[x]) : x;
-    }
+    std::size_t root_of(std::size_t x) { return parent[x] != x ? parent[x] = root_of(parent[x]) : x; }
 
     bool join(std::size_t a, std::size_t b)
     {
@@ -92,8 +85,7 @@ i64 square_distance(const JBox &a, const JBox &b)
     return dx * dx + dy * dy + dz * dz;
 }
 
-std::vector<std::tuple<i64, size_t, size_t>>
-get_distances(const std::vector<JBox> &boxes)
+std::vector<std::tuple<i64, size_t, size_t>> get_distances(const std::vector<JBox> &boxes)
 {
     std::vector<std::tuple<i64, size_t, size_t>> distances;
     std::size_t n = boxes.size();
@@ -107,8 +99,7 @@ get_distances(const std::vector<JBox> &boxes)
     return distances;
 }
 
-std::priority_queue<std::tuple<i64, size_t, size_t>>
-get_distances_p1(const std::vector<JBox> &boxes, std::size_t limit)
+std::priority_queue<std::tuple<i64, size_t, size_t>> get_distances_p1(const std::vector<JBox> &boxes, std::size_t limit)
 {
     std::priority_queue<std::tuple<i64, size_t, size_t>> heap;
     for (size_t i = 0; i < boxes.size(); ++i) {
@@ -131,8 +122,7 @@ std::string Day8::part_1(std::string filepath)
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open file: " + filepath);
     }
-    std::string content((std::istreambuf_iterator<char>(file)),
-                        std::istreambuf_iterator<char>());
+    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     const char *ptr = content.data();
     const char *end = ptr + content.size();
     std::vector<JBox> boxes;
@@ -170,8 +160,7 @@ std::string Day8::part_2(std::string filepath)
         throw std::runtime_error("Failed to open file: " + filepath);
     }
 
-    std::string content((std::istreambuf_iterator<char>(file)),
-                        std::istreambuf_iterator<char>());
+    std::string content((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
     const char *ptr = content.data();
     const char *end = ptr + content.size();
     std::vector<JBox> boxes;

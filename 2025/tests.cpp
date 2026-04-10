@@ -12,11 +12,7 @@
 #include "day_9.hpp"
 #include <catch2/catch_test_macros.hpp>
 
-std::string test_file(std::string day)
-{
-    return std::format(
-        "/home/paxmix/Projects/aoc_cpp/2025/puzzles/tests/day_{}.txt", day);
-}
+std::string test_file(std::string day) { return std::format("puzzles/tests/day_{}.txt", day); }
 
 TEST_CASE("Day 1")
 {

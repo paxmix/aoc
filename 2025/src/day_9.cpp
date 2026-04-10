@@ -35,10 +35,7 @@ class Point {
         }
     }
 
-    bool operator==(const Point &other) const
-    {
-        return x == other.x && y == other.y;
-    }
+    bool operator==(const Point &other) const { return x == other.x && y == other.y; }
 };
 
 u64 rect_area(const Point &a, const Point &b)
@@ -85,28 +82,22 @@ std::vector<Point> compress_points(const std::vector<Point> &points)
         cols.insert(p.y);
     }
     for (const auto &p : points) {
-        compressed_points.emplace_back(
-            std::distance(std::begin(rows), rows.find(p.x)),
-            std::distance(std::begin(cols), cols.find(p.y)));
+        compressed_points.emplace_back(std::distance(std::begin(rows), rows.find(p.x)),
+                                       std::distance(std::begin(cols), cols.find(p.y)));
     }
     return compressed_points;
 }
 
 std::vector<std::vector<i64>> create_map(const std::vector<Point> &points)
 {
-    const auto row_max =
-        (*std::max_element(
-             std::begin(points), std::end(points),
-             [](const auto &p1, const auto &p2) { return p1.x < p2.x; }))
-            .x;
-    const auto col_max =
-        (*std::max_element(
-             std::begin(points), std::end(points),
-             [](const auto &p1, const auto &p2) { return p1.y < p2.y; }))
-            .y;
+    const auto row_max = (*std::max_element(std::begin(points), std::end(points), [](const auto &p1, const auto &p2) {
+                             return p1.x < p2.x;
+                         })).x;
+    const auto col_max = (*std::max_element(std::begin(points), std::end(points), [](const auto &p1, const auto &p2) {
+                             return p1.y < p2.y;
+                         })).y;
 
-    auto map = std::vector<std::vector<i64>>(row_max + 1,
-                                             std::vector<i64>(col_max + 1, 0));
+    auto map = std::vector<std::vector<i64>>(row_max + 1, std::vector<i64>(col_max + 1, 0));
     for (std::size_t i = 1; i < points.size(); ++i) {
         const auto d_r = points[i].x - points[i - 1].x;
         const auto d_c = points[i].y - points[i - 1].y;
@@ -145,8 +136,8 @@ void flood_fill(std::vector<std::vector<i64>> &map)
         map[c.x][c.y] = 2;
         for (const auto &d : adj_delta) {
             const auto n = Point{c.x + d.x, c.y + d.y};
-            if (n.x >= 0 && n.x < static_cast<i64>(map.size()) && n.y >= 0 &&
-                n.y < static_cast<i64>(map[0].size()) && map[n.x][n.y] == 0) {
+            if (n.x >= 0 && n.x < static_cast<i64>(map.size()) && n.y >= 0 && n.y < static_cast<i64>(map[0].size()) &&
+                map[n.x][n.y] == 0) {
                 q.push(n);
                 map[n.x][n.y] = -1;
             }
@@ -154,8 +145,7 @@ void flood_fill(std::vector<std::vector<i64>> &map)
     }
 }
 
-bool is_valid_rect(const std::vector<std::vector<i64>> &map, const Point &p1,
-                   const Point &p2)
+bool is_valid_rect(const std::vector<std::vector<i64>> &map, const Point &p1, const Point &p2)
 {
     for (int r = std::min(p1.x, p2.x); r <= std::max(p1.x, p2.x); ++r) {
         for (int c = std::min(p1.y, p2.y); c <= std::max(p1.y, p2.y); ++c) {
@@ -165,16 +155,14 @@ bool is_valid_rect(const std::vector<std::vector<i64>> &map, const Point &p1,
     return true;
 }
 
-u64 max_area_p2(const std::vector<std::vector<i64>> &map,
-                const std::vector<Point> &compressed_points,
+u64 max_area_p2(const std::vector<std::vector<i64>> &map, const std::vector<Point> &compressed_points,
                 const std::vector<Point> &points)
 {
     u64 area = 0;
     for (usize i = 0; i < points.size(); ++i) {
         for (usize j = i + 1; j < points.size(); ++j) {
             u64 new_area = rect_area(points[i], points[j]);
-            if (new_area > area && is_valid_rect(map, compressed_points[i],
-                                                 compressed_points[j])) {
+            if (new_area > area && is_valid_rect(map, compressed_points[i], compressed_points[j])) {
                 area = new_area;
             }
         }

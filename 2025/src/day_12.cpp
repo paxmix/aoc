@@ -21,7 +21,7 @@ std::string Day12::part_1(std::string filepath)
         if (ss >> a >> x >> b >> x >> n1 >> n2 >> n3 >> n4 >> n5 >> n6) {
             int product = a * b;
             int sum = n1 + n2 + n3 + n4 + n5 + n6;
-            total += (product >= (sum * 8));
+            total += (product >= (sum * 9));
         }
     }
     return std::to_string(total);
