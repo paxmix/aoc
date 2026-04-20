@@ -17,6 +17,14 @@ func init() {
 }
 
 func (d Day17) Part1(input string) string {
+	return solution(input, 1, 3)
+}
+
+func (d Day17) Part2(input string) string {
+	return solution(input, 4, 10)
+}
+
+func solution(input string, minConsecutive, maxConsecutive int) string {
 	lines := strings.Split(input, "\n")
 	rows := len(lines)
 	cols := len(lines[0])
@@ -52,39 +60,36 @@ func (d Day17) Part1(input string) string {
 		}
 		visited[key] = true
 		// Possible direction: Straight, Left turn, Right turn
-		dirs := [][2]int{
-			{curr.dx, curr.dy},  // Straight
-			{curr.dy, -curr.dx}, // Left
-			{-curr.dy, curr.dx}, // Right
-		}
-		for i, d := range dirs {
-			nx, ny := curr.x+d[0], curr.y+d[1]
-			// check bounds
-			if nx < 0 || nx >= rows || ny < 0 || ny >= cols {
-				continue
-			}
-			newConsecutive := 1
-			if i == 0 {
-				newConsecutive = curr.consecutive + 1
-			}
-			// Max 3 blocks straight
-			if newConsecutive <= 3 {
+		// Try straight first
+		if curr.consecutive < maxConsecutive {
+			nx, ny := curr.x+curr.dx, curr.y+curr.dy
+			if nx >= 0 && nx < rows && ny >= 0 && ny < cols {
 				heap.Push(pq, &state{
-					x:           nx,
-					y:           ny,
-					dx:          d[0],
-					dy:          d[1],
-					consecutive: newConsecutive,
+					x: nx, y: ny, dx: curr.dx, dy: curr.dy,
+					consecutive: curr.consecutive + 1,
 					heatLoss:    curr.heatLoss + grid[nx][ny],
 				})
 			}
 		}
+		// Try turning if have moved straight for minConsecutive
+		if curr.consecutive >= minConsecutive {
+			turns := [][2]int{
+				{curr.dy, -curr.dx}, // Left
+				{-curr.dy, curr.dx}, // Right
+			}
+			for _, d := range turns {
+				nx, ny := curr.x+d[0], curr.y+d[1]
+				if nx >= 0 && nx < rows && ny >= 0 && ny < cols {
+					heap.Push(pq, &state{
+						x: nx, y: ny, dx: d[0], dy: d[1],
+						consecutive: 1,
+						heatLoss:    curr.heatLoss + grid[nx][ny],
+					})
+				}
+			}
+		}
 	}
 
-	return ""
-}
-
-func (d Day17) Part2(input string) string {
 	return ""
 }
 
