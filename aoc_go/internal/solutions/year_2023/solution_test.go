@@ -149,6 +149,22 @@ func TestSolutions(t *testing.T) {
 			exP1:       D17,
 			expectedP1: "102",
 			exP2:       D17,
+			expectedP2: "94",
+		},
+		{
+			name:       "Day 18",
+			solution:   Day18{},
+			exP1:       D18,
+			expectedP1: "62",
+			exP2:       D18,
+			expectedP2: "952408144115",
+		},
+		{
+			name:       "Day 19",
+			solution:   Day19{},
+			exP1:       D19,
+			expectedP1: "19114",
+			exP2:       D19,
 			expectedP2: "",
 		},
 	}
